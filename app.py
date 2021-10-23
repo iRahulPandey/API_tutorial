@@ -9,7 +9,6 @@ import pickle
 
 # Your API definition
 app = Flask(__name__)
-#bm = joblib.load("boston_model.joblib")
 model = pickle.load(open("model.pkl", "rb"))
 
 @app.route("/")
@@ -37,27 +36,26 @@ def predict_html():
         print ('Train the model first')
         return ('No model here to use')
 
-#@app.route('/predict', methods=['POST'])
-#def predict():
-#    if bm:
-#        try:
-#            json_ = request.json
-#            query = pd.DataFrame(json_)
-#            prediction = list(bm.predict(query))
-#            return jsonify({'prediction': str(prediction)})
-#
-#        except:
-#
-#            return jsonify({'trace': traceback.format_exc()})
-#    else:
-#        print ('Train the model first')
-#        return ('No model here to use')
+@app.route('/predict', methods=['POST'])
+def predict():
+    if bm:
+        try:
+            json_ = request.json
+            query = pd.DataFrame(json_)
+            prediction = list(bm.predict(query))
+            return jsonify({'prediction': str(prediction)})
+
+        except:
+
+            return jsonify({'trace': traceback.format_exc()})
+    else:
+        print ('Train the model first')
+        return ('No model here to use')
 
 if __name__ == '__main__':
 
     port = 9696 # If you don't provide any port the port will be set to 12345
-    #bm = joblib.load("boston_model.joblib") # Load "boston_model.joblib"
+    bm = joblib.load("boston_model.joblib") # Load "boston_model.joblib"
     print ('Model loaded')
     app.run(debug=True)
-
     #app.run(port=port, debug=True, host='0.0.0.0')
