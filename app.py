@@ -35,21 +35,21 @@ def predict_html():
         print ('Train the model first')
         return ('No model here to use')
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if bm:
-        try:
-            json_ = request.json
-            query = pd.DataFrame(json_)
-            prediction = list(bm.predict(query))
-            return jsonify({'prediction': str(prediction)})
-
-        except:
-
-            return jsonify({'trace': traceback.format_exc()})
-    else:
-        print ('Train the model first')
-        return ('No model here to use')
+#@app.route('/predict', methods=['POST'])
+#def predict():
+#    if bm:
+#        try:
+#            json_ = request.json
+#            query = pd.DataFrame(json_)
+#            prediction = list(bm.predict(query))
+#            return jsonify({'prediction': str(prediction)})
+#
+#        except:
+#
+#            return jsonify({'trace': traceback.format_exc()})
+#    else:
+#        print ('Train the model first')
+#        return ('No model here to use')
 
 if __name__ == '__main__':
 
