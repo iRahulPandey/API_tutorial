@@ -9,8 +9,8 @@ import pickle
 
 # Your API definition
 app = Flask(__name__)
-bm = joblib.load("boston_model.joblib")
-model = pickle.load(open("boston_model.joblib", "rb"))
+#bm = joblib.load("boston_model.joblib")
+model = pickle.load(open("model.pkl", "rb"))
 
 @app.route("/")
 def home():
