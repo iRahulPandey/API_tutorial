@@ -9,7 +9,7 @@ import pickle
 
 # Your API definition
 app = Flask(__name__)
-model = pickle.load(open("model.pkl", "rb"))
+#model = pickle.load(open("model.pkl", "rb"))
 
 @app.route("/")
 def home():
@@ -18,11 +18,11 @@ def home():
 
 @app.route('/predict_html', methods=['POST'])
 def predict_html():
-    if model:
+    if bm:
         try:
             int_features = [int(x) for x in request.form.values()]
             final_features = [np.array(int_features)]
-            prediction = list(model.predict(final_features))
+            prediction = list(bm.predict(final_features))
             output = round(prediction[0], 2)
 
             return render_template(
