@@ -8,6 +8,7 @@ import traceback
 
 # Your API definition
 app = Flask(__name__)
+bm = joblib.load("boston_model.joblib")
 
 @app.route("/")
 def home():
@@ -53,7 +54,7 @@ def predict():
 if __name__ == '__main__':
 
     port = 9696 # If you don't provide any port the port will be set to 12345
-    bm = joblib.load("boston_model.joblib") # Load "boston_model.joblib"
+    #bm = joblib.load("boston_model.joblib") # Load "boston_model.joblib"
     print ('Model loaded')
     app.run(debug=True)
 
