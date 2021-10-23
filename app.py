@@ -57,5 +57,5 @@ if __name__ == '__main__':
     port = 9696 # If you don't provide any port the port will be set to 12345
     bm = joblib.load("boston_model.joblib") # Load "boston_model.joblib"
     print ('Model loaded')
-    app.run(debug=True)
-    #app.run(port=port, debug=True, host='0.0.0.0')
+    #app.run(debug=True)
+    app.run(port=port, debug=True, host='0.0.0.0')
