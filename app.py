@@ -5,10 +5,12 @@ import numpy as np
 import pandas as pd
 import joblib
 import traceback
+import pickle
 
 # Your API definition
 app = Flask(__name__)
 bm = joblib.load("boston_model.joblib")
+model = pickle.load(open("boston_model.joblib", "rb"))
 
 @app.route("/")
 def home():
@@ -17,11 +19,11 @@ def home():
 
 @app.route('/predict_html', methods=['POST'])
 def predict_html():
-    if bm:
+    if model:
         try:
             int_features = [int(x) for x in request.form.values()]
             final_features = [np.array(int_features)]
-            prediction = list(bm.predict(final_features))
+            prediction = list(model.predict(final_features))
             output = round(prediction[0], 2)
 
             return render_template(
