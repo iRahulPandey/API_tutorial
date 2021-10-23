@@ -9,14 +9,16 @@ import pickle
 
 # Your API definition
 app = Flask(__name__)
-#model = pickle.load(open("model.pkl", "rb"))
+# model = pickle.load(open("model.pkl", "rb"))
+
 
 @app.route("/")
 def home():
-    #return "Hello, Flask!"
+    # return "Hello, Flask!"
     return render_template("index.html")
 
-@app.route('/predict_html', methods=['POST'])
+
+@app.route("/predict_html", methods=["POST"])
 def predict_html():
     if bm:
         try:
@@ -31,31 +33,33 @@ def predict_html():
 
         except:
 
-            return jsonify({'trace': traceback.format_exc()})
+            return jsonify({"trace": traceback.format_exc()})
     else:
-        print ('Train the model first')
-        return ('No model here to use')
+        print("Train the model first")
+        return "No model here to use"
 
-@app.route('/predict', methods=['POST'])
+
+@app.route("/predict", methods=["POST"])
 def predict():
     if bm:
         try:
             json_ = request.json
             query = pd.DataFrame(json_)
             prediction = list(bm.predict(query))
-            return jsonify({'prediction': str(prediction)})
+            return jsonify({"prediction": str(prediction)})
 
         except:
 
-            return jsonify({'trace': traceback.format_exc()})
+            return jsonify({"trace": traceback.format_exc()})
     else:
-        print ('Train the model first')
-        return ('No model here to use')
+        print("Train the model first")
+        return "No model here to use"
 
-if __name__ == '__main__':
 
-    port = 9696 # If you don't provide any port the port will be set to 12345
-    bm = joblib.load("boston_model.joblib") # Load "boston_model.joblib"
-    print ('Model loaded')
-    #app.run(debug=True)
-    app.run(port=port, debug=True, host='0.0.0.0')
+if __name__ == "__main__":
+
+    port = 9696  # If you don't provide any port the port will be set to 12345
+    bm = joblib.load("boston_model.joblib")  # Load "boston_model.joblib"
+    print("Model loaded")
+    # app.run(debug=True)
+    app.run(port=port, debug=True, host="0.0.0.0")
