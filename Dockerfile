@@ -3,6 +3,16 @@ COPY ./app /app
 WORKDIR /app
 RUN pip install sklearn joblib pandas numpy fastapi uvicorn cython pystan gunicorn 
 CMD gunicorn -w 3 -k uvicorn.workers.UvicornWorker fast_app:app --bind 0.0.0.0:$PORT
+
+# steps
+# steps to deploy on heroku
+# heroku container:login
+# heroku create bostonfastapiapp
+# heroku container:push web --app bostonfastapiapp
+# heroku container:release web --app bostonfastapiapp
+
+
+# Below doesn't work on heroku but run as docker
 # CMD ["uvicorn", "fast_app:app", "--host", "0.0.0.0"]
 
 # After this build docker and then just create container from terminal
