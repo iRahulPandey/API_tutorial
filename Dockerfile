@@ -11,3 +11,7 @@ COPY . .
 RUN pip install sklearn joblib pandas numpy fastapi uvicorn Flask flask_restful
 # Run
 CMD ["python","app.py"]
+
+# run following commands
+# docker build -f Dockerfile -t boston_model:api .
+# docker run -p 5000:5000 -d boston_model:api
