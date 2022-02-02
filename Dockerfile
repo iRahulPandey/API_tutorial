@@ -1,20 +1,13 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
-COPY ./app /app
+
+# Specify your base image
+FROM python:3.7.3-stretch
+# create a work directory
+RUN mkdir /app
+# navigate to this work directory
 WORKDIR /app
-RUN pip install sklearn joblib pandas numpy fastapi uvicorn cython pystan gunicorn 
-CMD gunicorn -w 3 -k uvicorn.workers.UvicornWorker fast_app:app --bind 0.0.0.0:$PORT
-
-# steps
-# steps to deploy on heroku
-# heroku container:login
-# heroku create bostonfastapiapp
-# heroku container:push web --app bostonfastapiapp
-# heroku container:release web --app bostonfastapiapp
-
-
-# Below doesn't work on heroku but run as docker
-# CMD ["uvicorn", "fast_app:app", "--host", "0.0.0.0"]
-
-# After this build docker and then just create container from terminal
-# docker build -t myimage .
-# docker run -d --name mycontainer -p 8000:8000 myimage
+#Copy all files
+COPY . .
+# Install dependencies
+RUN pip install sklearn joblib pandas numpy fastapi uvicorn Flask flask_restful
+# Run
+CMD ["python","app.py"]

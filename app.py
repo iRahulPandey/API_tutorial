@@ -45,6 +45,7 @@ def predict():
         try:
             json_ = request.json
             query = pd.DataFrame(json_)
+            print(query)
             prediction = list(bm.predict(query))
             return jsonify({"prediction": str(prediction)})
 
@@ -62,4 +63,8 @@ if __name__ == "__main__":
     bm = joblib.load("boston_model.joblib")  # Load "boston_model.joblib"
     print("Model loaded")
     # app.run(debug=True)
-    app.run(port=port, debug=True, host="0.0.0.0")
+    # app.run(port=port, debug=True, host="0.0.0.0")
+    # on container
+    app.run(debug=True, host="0.0.0.0")
+    # on local
+    # app.run(debug=True, host="127.0.0.1")
