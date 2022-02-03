@@ -44,9 +44,11 @@ def predict():
     if bm:
         try:
             json_ = request.json
-            query = pd.DataFrame(json_)
-            print(query)
-            prediction = list(bm.predict(query))
+            print("test")
+            print(json_)
+            query = pd.DataFrame(json_.items()).T
+            print(query[1:])
+            prediction = list(bm.predict(query[1:]))
             return jsonify({"prediction": str(prediction)})
 
         except:
@@ -65,6 +67,6 @@ if __name__ == "__main__":
     # app.run(debug=True)
     # app.run(port=port, debug=True, host="0.0.0.0")
     # on container
-    app.run(debug=True, host="0.0.0.0")
+    # app.run(debug=True, host="0.0.0.0")
     # on local
-    # app.run(debug=True, host="127.0.0.1")
+    app.run(debug=True, host="127.0.0.1")
